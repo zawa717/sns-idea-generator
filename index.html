@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNS投稿ネタ切れ防止AIアイデアジェネレーター — 毎日のネタ探しから卒業 ¥980/月</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --green:#059669; --teal:#0d9488; --lime:#a3e635; --text:#022c22; --muted:#047857; --light:#ecfdf5; }
+body { font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic UI',sans-serif; color:var(--text); line-height:1.6; overflow-x:hidden; }
+.hero { background:linear-gradient(135deg,#022c22 0%,#065f46 45%,#0d9488 100%); color:white; text-align:center; padding:72px 20px 90px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 30%,rgba(163,230,53,.3) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(13,148,136,.4) 0%,transparent 50%); }
+.badge { display:inline-block; background:rgba(163,230,53,.15); border:1px solid rgba(163,230,53,.6); color:#d9f99d; padding:6px 20px; border-radius:20px; font-size:13px; font-weight:700; margin-bottom:24px; position:relative; }
+.hero h1 { font-size:clamp(26px,5vw,48px); font-weight:900; line-height:1.3; margin-bottom:20px; position:relative; }
+.em { color:#a3e635; } .em2 { color:#ffffff; }
+.hero p { font-size:17px; color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 36px; position:relative; }
+.pb { display:inline-block; background:linear-gradient(135deg,var(--green),var(--teal)); color:white; font-size:21px; font-weight:900; padding:10px 36px; border-radius:50px; margin-bottom:28px; position:relative; box-shadow:0 4px 24px rgba(5,150,105,.5); }
+.cta-btn { display:inline-flex; align-items:center; gap:10px; background:#a3e635; color:#022c22; font-size:18px; font-weight:700; padding:18px 52px; border-radius:50px; text-decoration:none; box-shadow:0 8px 32px rgba(163,230,53,.4); transition:transform .2s; position:relative; }
+.cta-btn:hover { transform:translateY(-3px); }
+.section { padding:72px 20px; }
+.container { max-width:900px; margin:0 auto; }
+.title { text-align:center; font-size:clamp(22px,3vw,34px); font-weight:800; margin-bottom:48px; }
+.title span { color:var(--green); }
+.worry-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
+.worry { background:var(--light); border-radius:18px; padding:26px 22px; text-align:center; border:1px solid #a7f3d0; }
+.worry .icon { font-size:32px; margin-bottom:12px; }
+.worry p { font-size:14px; color:var(--muted); font-weight:600; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+.card { background:white; border-radius:20px; padding:28px 24px; border-top:4px solid var(--teal); box-shadow:0 2px 12px rgba(5,150,105,.1); }
+.ctag { display:inline-block; background:linear-gradient(135deg,var(--green),var(--teal)); color:white; font-size:12px; font-weight:700; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
+.ctitle { font-size:16px; font-weight:700; margin-bottom:8px; }
+.cdesc { font-size:13px; color:var(--muted); line-height:1.7; }
+.price-box { max-width:500px; margin:0 auto; background:var(--light); border-radius:24px; padding:40px 32px; text-align:center; border:3px solid var(--teal); }
+.pnum { font-size:60px; font-weight:900; color:var(--green); line-height:1; }
+.pu { font-size:16px; color:var(--muted); margin-bottom:24px; }
+.pl { list-style:none; text-align:left; margin-bottom:24px; }
+.pl li { font-size:14px; padding:10px 0; border-bottom:1px solid rgba(5,150,105,.15); }
+.pl li::before { content:'✓ '; color:var(--green); font-weight:700; }
+.cta-s { background:linear-gradient(135deg,#022c22,#065f46); color:white; padding:80px 20px; text-align:center; }
+.cta-s h2 { font-size:30px; font-weight:800; margin-bottom:12px; }
+.cta-s p { color:rgba(255,255,255,.85); font-size:16px; margin-bottom:36px; max-width:500px; margin-left:auto; margin-right:auto; }
+.lb { display:inline-flex; align-items:center; gap:10px; background:#a3e635; color:#022c22; font-size:18px; font-weight:700; padding:18px 52px; border-radius:50px; text-decoration:none; box-shadow:0 8px 32px rgba(163,230,53,.4); transition:transform .2s; }
+.lb:hover { transform:translateY(-3px); }
+footer { background:#022c22; color:rgba(255,255,255,.4); text-align:center; padding:28px 20px; font-size:13px; }
+</style>
+</head>
+<body>
+<section class="hero">
+  <div style="position:relative">
+    <div class="badge">💡 SNSネタ切れ防止AIジェネレーター · ¥980/月</div>
+    <h1><span class="em2">「今日は何投稿しよう」を、</span><br><span class="em">もう考えなくていい</span></h1>
+    <p>ジャンルを選ぶだけでAIが毎日の投稿ネタを無限に提案。ネタ切れの不安から解放され、投稿を続けやすくなります。</p>
+    <div class="pb">💰 月額980円 · いつでも解約OK</div><br>
+    <a href="https://sns-idea-gen-jp.fly.dev/" target="_blank" class="cta-btn">無料で今すぐ試す（無料体験版）</a>
+  </div>
+</section>
+<section class="section" style="background:white">
+  <div class="container">
+    <h2 class="title">こんな<span>お悩み</span>ありませんか？</h2>
+    <div class="worry-grid">
+      <div class="worry"><div class="icon">😵</div><p>毎日投稿ネタを考えるのに疲れた</p></div>
+      <div class="worry"><div class="icon">🔁</div><p>気づけば同じような投稿ばかりになる</p></div>
+      <div class="worry"><div class="icon">😟</div><p>フォロワーが飽きていないか不安</p></div>
+    </div>
+  </div>
+</section>
+<section class="section" style="background:var(--light)">
+  <div class="container">
+    <h2 class="title">できること</h2>
+    <div class="grid">
+      <div class="card"><span class="ctag">💡 無限生成</span><div class="ctitle">ジャンル入力で投稿ネタを毎日自動提案</div><div class="cdesc">業種・ジャンルを入力するだけで、その日使える投稿ネタをAIが次々に提案します。</div></div>
+      <div class="card"><span class="ctag">🗓️ ネタカレンダー</span><div class="ctitle">1ヶ月分のネタを一気に生成</div><div class="cdesc">月間の投稿計画を立てたいときは、1ヶ月分のネタをまとめて生成しカレンダー化できます。</div></div>
+      <div class="card"><span class="ctag">🔥 トレンド連動</span><div class="ctitle">今話題のテーマに絡めた提案</div><div class="cdesc">旬な話題やトレンドワードに関連づけたネタを提案し、注目を集めやすくします。</div></div>
+      <div class="card"><span class="ctag">🎯 ターゲット別</span><div class="ctitle">フォロワー層に合わせた切り口</div><div class="cdesc">ターゲット層を設定すると、その層に響きやすいネタの角度をAIが提案します。</div></div>
+      <div class="card"><span class="ctag">🔄 被り防止</span><div class="ctitle">過去投稿との重複を自動チェック</div><div class="cdesc">過去に使ったネタと似すぎていないかを自動でチェックし、マンネリ化を防ぎます。</div></div>
+    </div>
+  </div>
+</section>
+<section class="section" style="background:white">
+  <div class="container">
+    <h2 class="title">料金プラン</h2>
+    <div class="price-box">
+      <div class="pnum">¥980</div>
+      <div class="pu">/ 月額（いつでも解約OK）</div>
+      <ul class="pl">
+        <li>投稿ネタ無限生成</li>
+        <li>1ヶ月分ネタカレンダー作成</li>
+        <li>トレンド連動提案</li>
+        <li>過去ネタ重複チェック</li>
+        <li>先行登録者は初月無料</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="cta-s">
+  <h2>ネタ切れの不安、今日で終わりにしませんか</h2>
+  <p>先行登録いただいた方には優先案内とサービス開始時の特典をご用意します。</p>
+  <a href="https://sns-idea-gen-jp.fly.dev/" target="_blank" class="lb">無料で今すぐ試す（無料体験版）</a>
+</section>
+<footer><p>© 2026 SNS投稿ネタ切れ防止AIアイデアジェネレーター — 投稿ネタ自動提案の効率化ツール</p></footer>
+</body>
+</html>
