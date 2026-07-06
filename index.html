@@ -3,100 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SNS投稿ネタ切れ防止AIアイデアジェネレーター — 毎日のネタ探しから卒業 ¥980/月</title>
+<title>SNS投稿ネタ ジェネレーター — ジャンルを入れるだけで今日の投稿ネタが出る</title>
+<meta name="description" content="業種・ジャンルを入力して目的を選ぶだけで、そのまま使えるSNS投稿ネタを即生成。X・Instagram対応、登録不要・完全無料。ネタ切れ防止に。">
+<meta property="og:title" content="SNS投稿ネタ ジェネレーター">
+<meta property="og:description" content="ジャンルを入れるだけで、今日の投稿ネタが10個出る。登録不要・無料。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sns-idea-generator.netlify.app/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 :root { --green:#059669; --teal:#0d9488; --lime:#a3e635; --text:#022c22; --muted:#047857; --light:#ecfdf5; }
-body { font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic UI',sans-serif; color:var(--text); line-height:1.6; overflow-x:hidden; }
-.hero { background:linear-gradient(135deg,#022c22 0%,#065f46 45%,#0d9488 100%); color:white; text-align:center; padding:72px 20px 90px; position:relative; overflow:hidden; }
+body { font-family:'Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic UI',sans-serif; color:var(--text); line-height:1.6; overflow-x:hidden; background:#f7fdfb; }
+.hero { background:linear-gradient(135deg,#022c22 0%,#065f46 45%,#0d9488 100%); color:white; text-align:center; padding:56px 20px 64px; position:relative; overflow:hidden; }
 .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 30%,rgba(163,230,53,.3) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(13,148,136,.4) 0%,transparent 50%); }
-.badge { display:inline-block; background:rgba(163,230,53,.15); border:1px solid rgba(163,230,53,.6); color:#d9f99d; padding:6px 20px; border-radius:20px; font-size:13px; font-weight:700; margin-bottom:24px; position:relative; }
-.hero h1 { font-size:clamp(26px,5vw,48px); font-weight:900; line-height:1.3; margin-bottom:20px; position:relative; }
+.badge { display:inline-block; background:rgba(163,230,53,.15); border:1px solid rgba(163,230,53,.6); color:#d9f99d; padding:6px 20px; border-radius:20px; font-size:13px; font-weight:700; margin-bottom:22px; position:relative; }
+.hero h1 { font-size:clamp(24px,5vw,42px); font-weight:900; line-height:1.3; margin-bottom:16px; position:relative; }
 .em { color:#a3e635; } .em2 { color:#ffffff; }
-.hero p { font-size:17px; color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 36px; position:relative; }
-.pb { display:inline-block; background:linear-gradient(135deg,var(--green),var(--teal)); color:white; font-size:21px; font-weight:900; padding:10px 36px; border-radius:50px; margin-bottom:28px; position:relative; box-shadow:0 4px 24px rgba(5,150,105,.5); }
-.cta-btn { display:inline-flex; align-items:center; gap:10px; background:#a3e635; color:#022c22; font-size:18px; font-weight:700; padding:18px 52px; border-radius:50px; text-decoration:none; box-shadow:0 8px 32px rgba(163,230,53,.4); transition:transform .2s; position:relative; }
-.cta-btn:hover { transform:translateY(-3px); }
-.section { padding:72px 20px; }
+.hero p { font-size:16px; color:rgba(255,255,255,.88); max-width:540px; margin:0 auto; position:relative; }
+
+/* ── TOOL ── */
+.tool-wrap { max-width:760px; margin:-40px auto 0; padding:0 16px 40px; position:relative; z-index:2; }
+.tool { background:white; border-radius:22px; box-shadow:0 12px 40px rgba(2,44,34,.16); padding:28px 24px; }
+.tool h2 { font-size:19px; font-weight:800; margin-bottom:4px; }
+.tool .sub { font-size:13px; color:var(--muted); margin-bottom:20px; }
+.field { margin-bottom:16px; }
+.field label { display:block; font-size:13px; font-weight:700; margin-bottom:6px; color:var(--text); }
+.field input[type=text] { width:100%; padding:13px 14px; border:2px solid #cdeee2; border-radius:12px; font-size:15px; font-family:inherit; }
+.field input[type=text]:focus { outline:none; border-color:var(--teal); }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { border:2px solid #cdeee2; background:#fff; color:var(--muted); border-radius:20px; padding:8px 16px; font-size:13px; font-weight:700; cursor:pointer; transition:.15s; }
+.chip.on { background:var(--green); border-color:var(--green); color:#fff; }
+.row { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; }
+.gen-btn { flex:1; min-width:200px; background:linear-gradient(135deg,var(--green),var(--teal)); color:#fff; border:none; font-size:16px; font-weight:800; padding:15px; border-radius:12px; cursor:pointer; box-shadow:0 6px 20px rgba(5,150,105,.35); transition:.15s; }
+.gen-btn:hover { transform:translateY(-2px); }
+.gen-btn:disabled { opacity:.5; cursor:default; transform:none; }
+.hint { font-size:12px; color:#94a3b8; margin-top:8px; }
+
+/* results */
+.results { margin-top:22px; display:none; }
+.results.show { display:block; }
+.rcount { font-size:13px; font-weight:700; color:var(--muted); margin-bottom:12px; }
+.idea { border:1px solid #d7f0e7; border-left:4px solid var(--teal); border-radius:12px; padding:15px 16px; margin-bottom:12px; background:#fbfffe; }
+.idea .tag { display:inline-block; background:var(--light); color:var(--green); font-size:11px; font-weight:700; padding:3px 10px; border-radius:12px; margin-bottom:8px; }
+.idea .body { font-size:14.5px; white-space:pre-wrap; line-height:1.7; }
+.idea .copy { margin-top:10px; background:none; border:1px solid #cdeee2; color:var(--muted); font-size:12px; font-weight:700; padding:6px 14px; border-radius:8px; cursor:pointer; }
+.idea .copy:hover { background:var(--light); }
+.idea .copy.done { background:var(--green); color:#fff; border-color:var(--green); }
+.reroll { text-align:center; margin-top:8px; }
+.reroll button { background:none; border:2px solid #cdeee2; color:var(--muted); font-weight:700; font-size:14px; padding:11px 26px; border-radius:12px; cursor:pointer; }
+.reroll button:hover { border-color:var(--teal); }
+
+.section { padding:56px 20px; }
 .container { max-width:900px; margin:0 auto; }
-.title { text-align:center; font-size:clamp(22px,3vw,34px); font-weight:800; margin-bottom:48px; }
+.title { text-align:center; font-size:clamp(20px,3vw,30px); font-weight:800; margin-bottom:36px; }
 .title span { color:var(--green); }
-.worry-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
-.worry { background:var(--light); border-radius:18px; padding:26px 22px; text-align:center; border:1px solid #a7f3d0; }
-.worry .icon { font-size:32px; margin-bottom:12px; }
-.worry p { font-size:14px; color:var(--muted); font-weight:600; }
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-.card { background:white; border-radius:20px; padding:28px 24px; border-top:4px solid var(--teal); box-shadow:0 2px 12px rgba(5,150,105,.1); }
-.ctag { display:inline-block; background:linear-gradient(135deg,var(--green),var(--teal)); color:white; font-size:12px; font-weight:700; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
-.ctitle { font-size:16px; font-weight:700; margin-bottom:8px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; }
+.card { background:white; border-radius:18px; padding:24px 22px; border-top:4px solid var(--teal); box-shadow:0 2px 12px rgba(5,150,105,.08); }
+.ctitle { font-size:15px; font-weight:700; margin-bottom:6px; }
 .cdesc { font-size:13px; color:var(--muted); line-height:1.7; }
-.price-box { max-width:500px; margin:0 auto; background:var(--light); border-radius:24px; padding:40px 32px; text-align:center; border:3px solid var(--teal); }
-.pnum { font-size:60px; font-weight:900; color:var(--green); line-height:1; }
-.pu { font-size:16px; color:var(--muted); margin-bottom:24px; }
-.pl { list-style:none; text-align:left; margin-bottom:24px; }
-.pl li { font-size:14px; padding:10px 0; border-bottom:1px solid rgba(5,150,105,.15); }
-.pl li::before { content:'✓ '; color:var(--green); font-weight:700; }
-.cta-s { background:linear-gradient(135deg,#022c22,#065f46); color:white; padding:80px 20px; text-align:center; }
-.cta-s h2 { font-size:30px; font-weight:800; margin-bottom:12px; }
-.cta-s p { color:rgba(255,255,255,.85); font-size:16px; margin-bottom:36px; max-width:500px; margin-left:auto; margin-right:auto; }
-.lb { display:inline-flex; align-items:center; gap:10px; background:#a3e635; color:#022c22; font-size:18px; font-weight:700; padding:18px 52px; border-radius:50px; text-decoration:none; box-shadow:0 8px 32px rgba(163,230,53,.4); transition:transform .2s; }
-.lb:hover { transform:translateY(-3px); }
-footer { background:#022c22; color:rgba(255,255,255,.4); text-align:center; padding:28px 20px; font-size:13px; }
+.pro { background:linear-gradient(135deg,#022c22,#065f46); color:#fff; text-align:center; padding:64px 20px; }
+.pro h2 { font-size:26px; font-weight:800; margin-bottom:10px; }
+.pro p { color:rgba(255,255,255,.85); font-size:15px; margin:0 auto 28px; max-width:520px; }
+.pro .list { max-width:420px; margin:0 auto 28px; text-align:left; list-style:none; }
+.pro .list li { font-size:14px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.12); }
+.pro .list li::before { content:'✓ '; color:var(--lime); font-weight:700; }
+.lb { display:inline-flex; align-items:center; gap:8px; background:#a3e635; color:#022c22; font-size:16px; font-weight:800; padding:16px 44px; border-radius:50px; text-decoration:none; box-shadow:0 8px 28px rgba(163,230,53,.35); }
+footer { background:#022c22; color:rgba(255,255,255,.4); text-align:center; padding:26px 20px; font-size:12px; }
 </style>
 </head>
 <body>
 <section class="hero">
   <div style="position:relative">
-    <div class="badge">💡 SNSネタ切れ防止AIジェネレーター · ¥980/月</div>
-    <h1><span class="em2">「今日は何投稿しよう」を、</span><br><span class="em">もう考えなくていい</span></h1>
-    <p>ジャンルを選ぶだけでAIが毎日の投稿ネタを無限に提案。ネタ切れの不安から解放され、投稿を続けやすくなります。</p>
-    <div class="pb">💰 月額980円 · いつでも解約OK</div><br>
-    <a href="https://sns-idea-gen-jp.fly.dev/" target="_blank" class="cta-btn">無料で今すぐ試す（無料体験版）</a>
+    <div class="badge">💡 登録不要・完全無料で使える</div>
+    <h1><span class="em2">「今日は何を投稿しよう」を</span><br><span class="em">30秒で終わらせる</span></h1>
+    <p>あなたの業種を入れて目的を選ぶだけ。そのまま使える投稿ネタが一気に出ます。</p>
   </div>
 </section>
-<section class="section" style="background:white">
-  <div class="container">
-    <h2 class="title">こんな<span>お悩み</span>ありませんか？</h2>
-    <div class="worry-grid">
-      <div class="worry"><div class="icon">😵</div><p>毎日投稿ネタを考えるのに疲れた</p></div>
-      <div class="worry"><div class="icon">🔁</div><p>気づけば同じような投稿ばかりになる</p></div>
-      <div class="worry"><div class="icon">😟</div><p>フォロワーが飽きていないか不安</p></div>
+
+<!-- ══ 本物のツール ══ -->
+<div class="tool-wrap">
+  <div class="tool">
+    <h2>🛠 投稿ネタ ジェネレーター</h2>
+    <div class="sub">業種・ジャンルを入れて「ネタを出す」を押すだけ。何度でも無料。</div>
+
+    <div class="field">
+      <label for="genre">① あなたの業種・ジャンル・発信テーマ</label>
+      <input type="text" id="genre" placeholder="例：パーソナルジム／カフェ／美容師／AI副業／英会話コーチ" maxlength="30" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>② 投稿の目的</label>
+      <div class="chips" id="goals">
+        <div class="chip on" data-goal="共感">共感を集める</div>
+        <div class="chip" data-goal="集客">来店・問い合わせ</div>
+        <div class="chip" data-goal="販売">商品・サービス販売</div>
+        <div class="chip" data-goal="認知">認知・フォロワー増</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <button class="gen-btn" id="gen">💡 今日の投稿ネタを出す（10個）</button>
+    </div>
+    <div class="hint">※ 生成はすべてこの画面内で完結します。入力内容はどこにも送信されません。</div>
+
+    <div class="results" id="results">
+      <div class="rcount" id="rcount"></div>
+      <div id="ideas"></div>
+      <div class="reroll"><button id="reroll">🔄 別のネタをもう10個出す</button></div>
     </div>
   </div>
-</section>
-<section class="section" style="background:var(--light)">
+</div>
+
+<section class="section">
   <div class="container">
-    <h2 class="title">できること</h2>
+    <h2 class="title">この<span>3ステップ</span>だけ</h2>
     <div class="grid">
-      <div class="card"><span class="ctag">💡 無限生成</span><div class="ctitle">ジャンル入力で投稿ネタを毎日自動提案</div><div class="cdesc">業種・ジャンルを入力するだけで、その日使える投稿ネタをAIが次々に提案します。</div></div>
-      <div class="card"><span class="ctag">🗓️ ネタカレンダー</span><div class="ctitle">1ヶ月分のネタを一気に生成</div><div class="cdesc">月間の投稿計画を立てたいときは、1ヶ月分のネタをまとめて生成しカレンダー化できます。</div></div>
-      <div class="card"><span class="ctag">🔥 トレンド連動</span><div class="ctitle">今話題のテーマに絡めた提案</div><div class="cdesc">旬な話題やトレンドワードに関連づけたネタを提案し、注目を集めやすくします。</div></div>
-      <div class="card"><span class="ctag">🎯 ターゲット別</span><div class="ctitle">フォロワー層に合わせた切り口</div><div class="cdesc">ターゲット層を設定すると、その層に響きやすいネタの角度をAIが提案します。</div></div>
-      <div class="card"><span class="ctag">🔄 被り防止</span><div class="ctitle">過去投稿との重複を自動チェック</div><div class="cdesc">過去に使ったネタと似すぎていないかを自動でチェックし、マンネリ化を防ぎます。</div></div>
+      <div class="card"><div class="ctitle">1. 業種を入れる</div><div class="cdesc">「カフェ」「パーソナルジム」など、あなたの発信テーマを一言で。</div></div>
+      <div class="card"><div class="ctitle">2. 目的を選ぶ</div><div class="cdesc">共感・集客・販売・認知から、今日の投稿のねらいを1つ。</div></div>
+      <div class="card"><div class="ctitle">3. コピーして投稿</div><div class="cdesc">出てきたネタの骨組みに自分の言葉を足すだけ。ネタ探しの時間がゼロに。</div></div>
     </div>
   </div>
 </section>
-<section class="section" style="background:white">
-  <div class="container">
-    <h2 class="title">料金プラン</h2>
-    <div class="price-box">
-      <div class="pnum">¥980</div>
-      <div class="pu">/ 月額（いつでも解約OK）</div>
-      <ul class="pl">
-        <li>投稿ネタ無限生成</li>
-        <li>1ヶ月分ネタカレンダー作成</li>
-        <li>トレンド連動提案</li>
-        <li>過去ネタ重複チェック</li>
-        <li>先行登録者は初月無料</li>
-      </ul>
-    </div>
-  </div>
+
+<section class="pro">
+  <h2>もっと効率化したい人へ</h2>
+  <p>無料版でも毎日のネタは十分出せます。さらに投稿を仕組み化したい方には、有料版で以下を準備中です。</p>
+  <ul class="list">
+    <li>1ヶ月分のネタを一括生成してカレンダー化</li>
+    <li>過去に出したネタとの重複を自動チェック</li>
+    <li>X・Instagram・LINEなど媒体別に最適化した文面</li>
+    <li>トレンドワードに絡めたネタ提案</li>
+  </ul>
+  <a href="https://line.me/R/ti/p/@015gpnep" class="lb">先行案内をLINEで受け取る</a>
 </section>
-<section class="cta-s">
-  <h2>ネタ切れの不安、今日で終わりにしませんか</h2>
-  <p>先行登録いただいた方には優先案内とサービス開始時の特典をご用意します。</p>
-  <a href="https://sns-idea-gen-jp.fly.dev/" target="_blank" class="lb">無料で今すぐ試す（無料体験版）</a>
-</section>
-<footer><p>© 2026 SNS投稿ネタ切れ防止AIアイデアジェネレーター — 投稿ネタ自動提案の効率化ツール</p></footer>
+
+<footer><p>© 2026 SNS投稿ネタ ジェネレーター — 登録不要・無料の投稿ネタ発想ツール</p></footer>
+
+<script>
+// ── 目的チップ選択 ──
+const goalsEl = document.getElementById('goals');
+let goal = '共感';
+goalsEl.addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  [...goalsEl.children].forEach(x => x.classList.remove('on'));
+  c.classList.add('on'); goal = c.dataset.goal;
+});
+
+// ── テンプレートバンク（目的別・{g}=ジャンル）──
+// 各テンプレは「型」と「骨組み文」。ジャンルを差し込んで即使える投稿スケルトンを作る。
+const T = {
+  共感: [
+    ['あるある型', '{g}をやってる人にしか分からない「あるある」を3つ。\n\n1つでも当てはまったら、あなたは立派な{g}沼です。\n（例を3つ、自分の実体験で埋める）'],
+    ['失敗告白型', '正直に告白します。{g}を始めた頃、私は「これ」で大失敗しました。\n\n同じ失敗をしてほしくないので、当時の自分に言いたいことを書きます。'],
+    ['過去の自分型', '1年前の私に{g}について1つだけアドバイスできるなら、こう言います。\n\n「◯◯だけは今日から変えて」と。理由も添えて。'],
+    ['本音型', '{g}の発信では言いづらいけど、本音を言います。\n\n実は「◯◯」って、みんなが思ってるほど大事じゃない。本当に効くのは△△です。'],
+    ['共感の問いかけ型', '{g}をやっていて、ふとこう思う瞬間ありませんか？\n\n「あれ、これ意味あるのかな」って。\n\n——私はこう考えて乗り越えました。'],
+  ],
+  集客: [
+    ['ビフォーアフター型', '{g}で「ある変化」を起こしたお客様の話。\n\nビフォー：◯◯で悩んでいた\nアフター：△△になった\n\n何をしたか、手順で公開します。'],
+    ['お客様の声型', '先日、{g}をご利用いただいた方からこんな言葉を。\n\n「□□□□」\n\nこの一言のために続けています。ご相談はプロフィールから。'],
+    ['よくある質問型', '{g}について一番よく聞かれる質問に答えます。\n\nQ.「◯◯って本当に効果あるの？」\nA. 結論から言うと——\n\n続きが気になる方はDMかコメントで。'],
+    ['限定オファー型', '【{g}・今週だけ】\n新しく始めたい方向けに、無料相談の枠を◯名分ご用意しました。\n\n「気になってたけど一歩踏み出せない」人はこの機会に。'],
+    ['舞台裏型', '{g}の裏側、ちょっとだけお見せします。\n\n実はこの部分に一番こだわっていて…（写真つきで工程を公開）\n\n気になった方はぜひ体験しに来てください。'],
+  ],
+  販売: [
+    ['問題提起→解決型', '{g}で結果が出ない人の9割は、ここを間違えています。\n\nそれは「◯◯」。\n\n正しいやり方を、私の商品ではこう解決しています。'],
+    ['3つの理由型', 'なぜ私の{g}サービスを選ぶ人が増えているのか。理由は3つ。\n\n①◯◯\n②△△\n③□□\n\n詳しくはプロフィールのリンクから。'],
+    ['実績提示型', '{g}でこれまでに出してきた具体的な成果を、数字で公開します。\n\n・◯◯（数字）\n・△△（数字）\n\n再現性のある方法を、今だけ特別価格で。'],
+    ['損失回避型', '{g}を独学で続けると、実はこれだけの「時間」を失います。\n\n私も遠回りして気づきました。\n\nその遠回りをショートカットする方法をまとめました。'],
+    ['ストーリー販売型', 'ゼロから{g}を始めて、ここまで来た話。\n\n最初は◯◯だった → △△という壁 → □□で突破\n\nこの全プロセスを1つの教材にまとめました。'],
+  ],
+  認知: [
+    ['リスト型', '{g}を始めるなら最低限これだけは知っておきたい5つ。\n\n①◯◯\n②△△\n③□□\n④◇◇\n⑤☆☆\n\n保存して後で見返してください。'],
+    ['逆張り型', '{g}の「常識」、実は逆かもしれません。\n\nみんな「◯◯すべき」と言うけど、私は△△を推します。\n\n理由を説明します。'],
+    ['ニュース便乗型', '最近話題の「◯◯」、{g}にどう影響する？\n\n結論：△△な人にはチャンス、□□な人には要注意。\n\n私の見立てを書きます。'],
+    ['比較型', '{g}の「A」と「B」、どっちがいい問題に決着をつけます。\n\n結論は目的で変わる。\n・時間がない人 → A\n・じっくり派 → B\n\n理由つきで解説。'],
+    ['数字フック型', '{g}で意外と知られていない「数字」の話。\n\n実は◯◯%の人が△△で挫折します。\n\nでも、あるコツを知っていれば回避できます。'],
+  ],
+};
+
+const ideasEl = document.getElementById('ideas');
+const resultsEl = document.getElementById('results');
+const rcountEl = document.getElementById('rcount');
+
+function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function generate() {
+  let g = document.getElementById('genre').value.trim();
+  if (!g) { document.getElementById('genre').focus(); document.getElementById('genre').style.borderColor='#ef4444'; return; }
+  document.getElementById('genre').style.borderColor='';
+  // 選んだ目的を主軸に、他の目的からも混ぜて10個作る
+  const primary = shuffle(T[goal]);
+  const others = shuffle(Object.keys(T).filter(k=>k!==goal).flatMap(k=>T[k].map(t=>[k,...t])));
+  const picks = [];
+  primary.forEach(t=>picks.push([goal,...t]));           // 主目的5個
+  others.slice(0,5).forEach(o=>picks.push(o));           // 他目的から5個
+  const chosen = shuffle(picks).slice(0,10);
+  ideasEl.innerHTML = '';
+  chosen.forEach(([gl,type,tmpl])=>{
+    const body = tmpl.replaceAll('{g}', g);
+    const div = document.createElement('div');
+    div.className='idea';
+    div.innerHTML = `<span class="tag">${gl}・${type}</span><div class="body"></div><button class="copy">📋 コピー</button>`;
+    div.querySelector('.body').textContent = body;
+    const btn = div.querySelector('.copy');
+    btn.addEventListener('click', ()=>{
+      navigator.clipboard.writeText(body).then(()=>{ btn.textContent='✓ コピーしました'; btn.classList.add('done'); setTimeout(()=>{btn.textContent='📋 コピー';btn.classList.remove('done');},1500); });
+    });
+    ideasEl.appendChild(div);
+  });
+  rcountEl.textContent = `「${g}」の投稿ネタを10個つくりました（目的：${goal}中心）`;
+  resultsEl.classList.add('show');
+  resultsEl.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.getElementById('gen').addEventListener('click', generate);
+document.getElementById('reroll').addEventListener('click', generate);
+document.getElementById('genre').addEventListener('keydown', e=>{ if(e.key==='Enter') generate(); });
+</script>
 </body>
 </html>
